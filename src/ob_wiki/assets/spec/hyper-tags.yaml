@@ -1,0 +1,23 @@
+version: 1
+
+field: hyper_tags
+scope:
+  - _Wiki/topics
+  - _Wiki/methods
+
+rules:
+  preferred_count:
+    min: 1
+    max: 2
+    note: use more only when the page object genuinely spans multiple top-level domains
+  format: lowercase kebab-case
+  intrinsic_only: true
+  sync_to_tags_front: true
+
+registry:
+  - key: concept
+    group: topic
+    description: fundamental concepts, definitions, and phenomena
+  - key: method
+    group: method
+    description: modeling, statistical, or computational methods

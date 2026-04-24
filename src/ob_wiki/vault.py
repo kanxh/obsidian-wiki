@@ -7,15 +7,7 @@ WIKI_SUBDIR = "_Wiki"
 HYPER_TAGS_PATH = "spec/hyper-tags.yaml"
 CONVENTION_PATH = "spec/wiki-convention.md"
 
-_FALLBACK_TAGS = [
-    "climate",
-    "thermal-comfort",
-    "energy",
-    "statistics",
-    "machine-learning",
-    "deep-learning",
-    "llm",
-]
+_FALLBACK_TAGS: list[str] = []
 
 
 def resolve_vault(vault_arg: str | None) -> Path:

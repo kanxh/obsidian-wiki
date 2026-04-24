@@ -8,8 +8,10 @@ from ob_wiki.vault import resolve_vault
 from ob_wiki.commands import (
     cmd_list, cmd_show, cmd_stats,
     cmd_search, cmd_papers, cmd_export,
-    cmd_lint, cmd_new, cmd_index, cmd_setup,
+    cmd_lint, cmd_new, cmd_index, cmd_setup, cmd_init,
 )
+
+_VAULT_FREE = {"setup", "init"}
 
 
 def main() -> None:
@@ -29,6 +31,7 @@ def main() -> None:
 
     sub = parser.add_subparsers(dest="command", metavar="COMMAND", required=True)
 
+    cmd_init.add_parser(sub)
     cmd_list.add_parser(sub)
     cmd_show.add_parser(sub)
     cmd_stats.add_parser(sub)
@@ -40,6 +43,11 @@ def main() -> None:
     cmd_index.add_parser(sub)
 
     args = parser.parse_args()
+
+    if args.command in _VAULT_FREE:
+        dispatch_free = {"init": cmd_init.run}
+        dispatch_free[args.command](args, None)
+        return
 
     try:
         vault = resolve_vault(args.vault)
