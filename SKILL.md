@@ -1,3 +1,15 @@
+---
+name: ob-wiki
+description: |
+  CLI tool for an Obsidian `_Wiki/` compiled knowledge layer. Use when the
+  user wants to query entries (list, show, search, stats, papers, export,
+  lint) or maintain them (new entry, extract concepts from notes/clippings,
+  triage sources, refresh index). Trigger on: "wiki entry", "_Wiki",
+  "ob-wiki", "add to wiki", "extract from notes", "wiki health", "papers
+  cited in wiki", "export wiki context". Skip for Zotero/bibliography
+  (zotero-cli), LaTeX editing (latex), or general Obsidian plugin questions.
+---
+
 # ob-wiki skill
 
 Use the `ob-wiki` CLI to manage an Obsidian `_Wiki/` research wiki. Invoke this
@@ -24,6 +36,41 @@ which ob-wiki && ob-wiki stats
 ```
 If `ob-wiki` is not found: `pip install git+https://github.com/kanxh/ob-wiki.git`
 
+## Before adding or editing an entry
+
+1. Read `_Wiki/spec/wiki-convention.md` — writing rules, frontmatter schema, link format.
+2. Check for a maintenance log (e.g. `_Wiki/docs/log.md`) if the vault has one.
+3. Run `ob-wiki list --json` and inspect neighboring entries so naming, granularity,
+   and hyper-tags stay consistent with what already exists.
+
+## Extraction standard
+
+Only extract an item when it is already a stable retrieval unit:
+
+- it can be defined cleanly
+- it connects multiple notes, clippings, or papers
+- it links naturally to neighboring wiki entries
+- it is likely to recur across the vault
+
+Do not extract:
+
+- one-off experiment settings
+- reviewer comments
+- narrow pipeline details that do not stand alone
+- weak clippings that only mention a term without defining it
+
+## Source priorities
+
+When writing entry body content, prefer sources in this order:
+
+1. Strong project notes that already synthesize a concept or method
+2. High-quality institutional or dataset clippings
+3. Paper PDFs or extracted notes in project folders
+4. Secondary clippings that sharpen wording or edge cases
+
+Use clippings as support, not as the only basis for a page, unless the clipping
+is itself an authoritative source.
+
 ## Core patterns
 
 ### List and filter
@@ -35,8 +82,8 @@ ob-wiki list --hyper-tag statistics --since 2026-01-01
 
 ### Show a single entry
 ```bash
-ob-wiki show HMM
-ob-wiki show "thermal comfort" --json          # partial name match
+ob-wiki show "Gaussian Process"
+ob-wiki show gp --json                         # partial name match
 ```
 
 ### Stats
@@ -48,7 +95,7 @@ ob-wiki stats --json
 ### Search
 ```bash
 ob-wiki search "state space" --json
-ob-wiki search climate --type topic
+ob-wiki search "neural network" --type method
 ```
 
 ### Papers cited in wiki
@@ -97,17 +144,17 @@ ob-wiki index --title "My Wiki" --subtitle "Research knowledge base"
 
 **show / export json:**
 ```json
-{"name": "HMM", "type": "method", "hyper_tags": [...], "body": "...", "related": {...}}
+{"name": "HMM", "type": "method", "hyper_tags": ["statistics"], "body": "...", "related": {...}}
 ```
 
 **stats:**
 ```json
-{"total_topics": 26, "total_methods": 24, "hyper_tag_counts": [...], "recently_updated": [...]}
+{"total_entries": 50, "hyper_tag_counts": [...], "recently_updated": [...]}
 ```
 
 **papers:**
 ```json
-[{"paper": "sAMY 1.0", "cited_by": ["EPW weather file", "TMY"]}]
+[{"paper": "Author et al. 2024", "cited_by": ["Entry A", "Entry B"]}]
 ```
 
 **lint:**

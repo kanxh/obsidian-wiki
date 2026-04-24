@@ -31,6 +31,7 @@ Repository = "https://github.com/kanxh/ob-wiki"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ob_wiki"]
+artifacts = ["src/ob_wiki/assets/**", "src/ob_wiki/templates/**"]
 
 [tool.hatch.build.targets.sdist]
 include = ["src/ob_wiki/", "README.md"]
