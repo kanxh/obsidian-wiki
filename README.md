@@ -1,4 +1,4 @@
-# ob-wiki
+# obsidian-wiki
 
 Manage an Obsidian research wiki from the command line — list and search
 entries, scaffold new pages with schema-compliant frontmatter, run health
@@ -58,10 +58,10 @@ command uses them to surface shared literature across entries.
 
 ```bash
 # uv (recommended)
-uv tool install git+https://github.com/kanxh/ob-wiki.git
+uv tool install git+https://github.com/kanxh/obsidian-wiki.git
 
 # pip
-pip install git+https://github.com/kanxh/ob-wiki.git
+pip install git+https://github.com/kanxh/obsidian-wiki.git
 ```
 
 Register the skill with your AI tools:
@@ -88,13 +88,9 @@ ob-wiki init ~/Documents/my-vault
 ob-wiki stats
 ```
 
-Then ask your AI assistant to populate it:
+Then ask your AI assistant to extract wiki entries from your vault:
 
-> *I just initialized a `_Wiki/` in my Obsidian vault. I have notes on
-> Gaussian Processes, Bayesian Optimization, and surrogate modeling under
-> `notes/`. Extract the key concepts into wiki entries — one per stable
-> idea — following the convention in `_Wiki/spec/wiki-convention.md`.
-> Use `ob-wiki new` to scaffold each entry, then fill in the body.*
+> *I just initialized a `_Wiki/` in my Obsidian vault. Extract stable concepts and methods from the vault into wiki entries, following the convention in `_Wiki/spec/wiki-convention.md`. Use `ob-wiki new` to scaffold each entry, then fill in the body from the source notes.*
 
 ```bash
 # Day-to-day usage
